@@ -138,15 +138,46 @@ php artisan test
 ./vendor/bin/phpunit
 ```
 
-## Deployment Guide (Summary)
+## Deployment
+
+### Option A — Docker (recommended, runs anywhere)
+
+Requires [Docker Desktop](https://www.docker.com/products/docker-desktop/).
+
+```bash
+docker compose up --build -d
+```
+
+Open **http://localhost:8080**
+
+Demo logins (seeded automatically on first run):
+
+| Role | Email | Password |
+|------|-------|----------|
+| Admin | admin@lawsphere.com | password |
+| Lawyer | lawyer@lawsphere.com | password |
+| Client | client@lawsphere.com | password |
+
+Stop: `docker compose down`
+
+### Option B — Render.com (cloud, from GitHub)
+
+1. Push this repo to GitHub
+2. Sign up at [render.com](https://render.com)
+3. **New → Blueprint** → connect repo `hiyaragesavindu2003/LawSphere`
+4. Render reads `render.yaml` and creates web + MySQL
+5. Set `APP_URL` to your Render URL (e.g. `https://lawsphere.onrender.com`)
+6. Wait for build (~5–10 min), then visit the live URL
+
+> Note: Render MySQL may require a paid plan in some regions. Use Docker on a VPS or shared hosting if needed.
+
+### Option C — Shared hosting / VPS
 
 1. Set `APP_ENV=production`, `APP_DEBUG=false` in `.env`
 2. Run `composer install --optimize-autoloader --no-dev`
-3. Run `php artisan config:cache`, `route:cache`, `view:cache`
-4. Point web server document root to `/public`
-5. Set up queue worker for `QUEUE_CONNECTION=database`
-6. Configure mail driver for production email verification
-7. Enable HTTPS and secure session cookies
+3. Run `php artisan migrate --force`, `php artisan config:cache`, `php artisan route:cache`, `php artisan view:cache`
+4. Point the web server document root to `/public`
+5. Enable HTTPS and secure session cookies
 
 ## Next Phases (Planned)
 

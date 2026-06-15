@@ -1,0 +1,59 @@
+# Deploy LawSphere on Render: https://render.com
+# 1. Connect GitHub repo hiyaragesavindu2003/LawSphere
+# 2. New > Blueprint > select this file
+# 3. After deploy, open the web URL and log in with demo accounts
+
+databases:
+  - name: lawsphere-db
+    databaseName: lawsphere
+    user: lawsphere
+    plan: free
+
+services:
+  - type: web
+    name: lawsphere
+    runtime: docker
+    plan: free
+    dockerfilePath: ./Dockerfile
+    healthCheckPath: /
+    envVars:
+      - key: APP_NAME
+        value: LawSphere
+      - key: APP_ENV
+        value: production
+      - key: APP_DEBUG
+        value: "false"
+      - key: APP_KEY
+        generateValue: true
+      - key: APP_URL
+        sync: false
+      - key: DB_CONNECTION
+        value: mysql
+      - key: DB_HOST
+        fromDatabase:
+          name: lawsphere-db
+          property: host
+      - key: DB_PORT
+        fromDatabase:
+          name: lawsphere-db
+          property: port
+      - key: DB_DATABASE
+        fromDatabase:
+          name: lawsphere-db
+          property: database
+      - key: DB_USERNAME
+        fromDatabase:
+          name: lawsphere-db
+          property: user
+      - key: DB_PASSWORD
+        fromDatabase:
+          name: lawsphere-db
+          property: password
+      - key: SESSION_DRIVER
+        value: database
+      - key: CACHE_STORE
+        value: database
+      - key: QUEUE_CONNECTION
+        value: database
+      - key: SEED_DATABASE
+        value: "true"
