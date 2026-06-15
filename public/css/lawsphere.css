@@ -1,0 +1,219 @@
+:root {
+    --lawsphere-navy: #1a237e;
+    --lawsphere-navy-dark: #0d1642;
+    --lawsphere-gold: #c9a227;
+    --lawsphere-gold-light: #e8c547;
+    --lawsphere-white: #ffffff;
+    --lawsphere-light: #f8f9fc;
+}
+
+body {
+    background-color: var(--lawsphere-light);
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+.lawsphere-nav {
+    background: linear-gradient(135deg, var(--lawsphere-navy) 0%, var(--lawsphere-navy-dark) 100%);
+    box-shadow: 0 2px 10px rgba(26, 35, 126, 0.3);
+}
+
+.lawsphere-footer {
+    background-color: var(--lawsphere-navy-dark);
+    color: rgba(255, 255, 255, 0.8);
+    margin-top: auto;
+}
+
+.btn-btn-gold {
+    background-color: var(--lawsphere-gold);
+    border-color: var(--lawsphere-gold);
+    color: var(--lawsphere-navy-dark);
+    font-weight: 600;
+}
+
+.btn-btn-gold:hover {
+    background-color: var(--lawsphere-gold-light);
+    border-color: var(--lawsphere-gold-light);
+    color: var(--lawsphere-navy-dark);
+}
+
+.btn-btn-navy {
+    background-color: var(--lawsphere-navy);
+    border-color: var(--lawsphere-navy);
+    color: white;
+}
+
+.btn-btn-navy:hover {
+    background-color: var(--lawsphere-navy-dark);
+    border-color: var(--lawsphere-navy-dark);
+    color: white;
+}
+
+.auth-card {
+    max-width: 520px;
+    margin: 2rem auto;
+    border: none;
+    border-radius: 12px;
+    box-shadow: 0 8px 30px rgba(26, 35, 126, 0.12);
+}
+
+.auth-card .card-header {
+    background: linear-gradient(135deg, var(--lawsphere-navy) 0%, var(--lawsphere-navy-dark) 100%);
+    color: white;
+    border-radius: 12px 12px 0 0 !important;
+    padding: 1.5rem;
+}
+
+.dashboard-stat {
+    border-left: 4px solid var(--lawsphere-gold);
+    transition: transform 0.2s;
+}
+
+.dashboard-stat:hover {
+    transform: translateY(-2px);
+}
+
+.hero-section {
+    background: linear-gradient(135deg, var(--lawsphere-navy) 0%, var(--lawsphere-navy-dark) 100%);
+    color: white;
+    padding: 5rem 0;
+}
+
+.hero-section h1 {
+    font-weight: 700;
+}
+
+.text-gold {
+    color: var(--lawsphere-gold);
+}
+
+.form-control:focus,
+.form-select:focus {
+    border-color: var(--lawsphere-gold);
+    box-shadow: 0 0 0 0.2rem rgba(201, 162, 39, 0.25);
+}
+
+.lawyer-list-hero {
+    background: linear-gradient(135deg, var(--lawsphere-navy) 0%, var(--lawsphere-navy-dark) 100%);
+    color: white;
+}
+
+.lawyer-card {
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.lawyer-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 12px 24px rgba(26, 35, 126, 0.15) !important;
+}
+
+.lawyer-avatar {
+    width: 64px;
+    height: 64px;
+    object-fit: cover;
+    border: 3px solid var(--lawsphere-gold);
+}
+
+.lawyer-profile-photo {
+    width: 120px;
+    height: 120px;
+    object-fit: cover;
+    border: 4px solid var(--lawsphere-gold);
+}
+
+.lawyer-spec-badge {
+    background-color: rgba(26, 35, 126, 0.1);
+    color: var(--lawsphere-navy);
+    font-weight: 500;
+}
+
+.lawyer-profile-card {
+    position: sticky;
+    top: 1rem;
+}
+
+.chat-portal {
+    max-width: 900px;
+    margin: 0 auto;
+    overflow: hidden;
+}
+
+.chat-portal-header {
+    background: linear-gradient(135deg, var(--lawsphere-navy) 0%, var(--lawsphere-navy-dark) 100%);
+}
+
+.chat-messages {
+    height: 420px;
+    overflow-y: auto;
+    background-color: #f0f2f8;
+}
+
+.chat-list-avatar {
+    width: 48px;
+    height: 48px;
+    object-fit: cover;
+    border: 2px solid var(--lawsphere-gold);
+    flex-shrink: 0;
+}
+
+.chat-list-item:hover {
+    background-color: rgba(26, 35, 126, 0.04);
+}
+
+.chat-bubble-row {
+    display: flex;
+    margin-bottom: 0.75rem;
+}
+
+.chat-bubble-row.mine {
+    justify-content: flex-end;
+}
+
+.chat-bubble-row.theirs {
+    justify-content: flex-start;
+}
+
+.chat-bubble {
+    max-width: 75%;
+    padding: 0.65rem 1rem;
+    border-radius: 1rem;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.06);
+}
+
+.chat-bubble-row.mine .chat-bubble {
+    background: linear-gradient(135deg, var(--lawsphere-navy) 0%, var(--lawsphere-navy-dark) 100%);
+    color: white;
+    border-bottom-right-radius: 0.25rem;
+}
+
+.chat-bubble-row.theirs .chat-bubble {
+    background: white;
+    color: #333;
+    border-bottom-left-radius: 0.25rem;
+}
+
+.chat-time {
+    opacity: 0.75;
+    font-size: 0.7rem;
+}
+
+.min-width-0 {
+    min-width: 0;
+}
+
+.appointment-booking-card {
+    overflow: hidden;
+}
+
+.appointment-booking-header {
+    background: linear-gradient(135deg, var(--lawsphere-navy) 0%, var(--lawsphere-navy-dark) 100%);
+}
+
+.appointment-list-card {
+    transition: box-shadow 0.2s;
+}
+
+.appointment-list-card:hover {
+    box-shadow: 0 8px 20px rgba(26, 35, 126, 0.12) !important;
+}
