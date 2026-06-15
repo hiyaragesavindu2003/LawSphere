@@ -29,6 +29,11 @@
                     @auth
                         @if(auth()->user()->isClient())
                             <li class="nav-item">
+                                <a class="nav-link" href="{{ route('client.legal-advice.index') }}">
+                                    <i class="bi bi-journal-text me-1"></i>Legal Advice
+                                </a>
+                            </li>
+                            <li class="nav-item">
                                 <a class="nav-link" href="{{ route('client.appointments.index') }}">
                                     <i class="bi bi-calendar-check me-1"></i>Appointments
                                 </a>
@@ -38,7 +43,17 @@
                                     <i class="bi bi-chat-dots me-1"></i>Messages
                                 </a>
                             </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ route('payments.index') }}">
+                                    <i class="bi bi-credit-card me-1"></i>Payments
+                                </a>
+                            </li>
                         @elseif(auth()->user()->isLawyer() && auth()->user()->lawyer?->is_approved)
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ route('lawyer.legal-advice.index') }}">
+                                    <i class="bi bi-journal-text me-1"></i>Legal Advice
+                                </a>
+                            </li>
                             <li class="nav-item">
                                 <a class="nav-link" href="{{ route('lawyer.appointments.index') }}">
                                     <i class="bi bi-calendar-check me-1"></i>Appointments
@@ -47,6 +62,22 @@
                             <li class="nav-item">
                                 <a class="nav-link" href="{{ route('lawyer.chat.index') }}">
                                     <i class="bi bi-chat-dots me-1"></i>Messages
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ route('lawyer.membership.index') }}">
+                                    <i class="bi bi-award me-1"></i>Membership
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ route('payments.index') }}">
+                                    <i class="bi bi-credit-card me-1"></i>Payments
+                                </a>
+                            </li>
+                        @elseif(auth()->user()->isAdmin())
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ route('admin.lawyers.index', ['filter' => 'pending']) }}">
+                                    <i class="bi bi-person-check me-1"></i>Lawyer Approvals
                                 </a>
                             </li>
                         @endif

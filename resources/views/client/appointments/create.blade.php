@@ -64,7 +64,12 @@
 
                         <div class="alert alert-light border mt-4 mb-0">
                             <i class="bi bi-info-circle text-gold me-1"></i>
-                            Your request will be sent to the lawyer for <strong>approval</strong>. You will see the status in My Appointments.
+                            Your request will be sent to the lawyer for <strong>approval</strong> after payment.
+                        </div>
+
+                        <div class="payment-fee-box d-flex justify-content-between align-items-center mt-4 p-3 rounded">
+                            <span class="fw-semibold"><i class="bi bi-credit-card text-gold me-1"></i> Consultation fee</span>
+                            <span class="fs-5 fw-bold text-gold">{{ config('lawsphere.currency_symbol') }}{{ number_format($consultationFee, 2) }}</span>
                         </div>
 
                         <div class="d-flex gap-2 mt-4">

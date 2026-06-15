@@ -6,6 +6,12 @@
 <div class="container">
     <div class="d-flex justify-content-between align-items-center mb-4 flex-wrap gap-2">
         <h2 class="mb-0"><i class="bi bi-speedometer2 me-2"></i>Client Dashboard</h2>
+        <a href="{{ route('client.legal-advice.index') }}" class="btn btn-outline-primary">
+            <i class="bi bi-journal-text me-1"></i> Legal Advice
+        </a>
+        <a href="{{ route('payments.index') }}" class="btn btn-outline-secondary">
+            <i class="bi bi-credit-card me-1"></i> Payments
+        </a>
         <a href="{{ route('client.chat.index') }}" class="btn btn-btn-navy">
             <i class="bi bi-chat-dots me-1"></i> Messages
         </a>
@@ -56,10 +62,10 @@
                 <div class="card-header bg-white"><h5 class="mb-0">Recent Legal Requests</h5></div>
                 <div class="card-body">
                     @forelse($recentRequests as $request)
-                        <div class="py-2 border-bottom">
+                        <a href="{{ route('client.legal-advice.show', $request) }}" class="d-block py-2 border-bottom text-decoration-none text-dark">
                             <strong>{{ $request->subject }}</strong>
                             <br><small class="text-muted">{{ $request->status->label() }} — {{ $request->created_at->diffForHumans() }}</small>
-                        </div>
+                        </a>
                     @empty
                         <p class="text-muted mb-0">No requests submitted yet.</p>
                     @endforelse

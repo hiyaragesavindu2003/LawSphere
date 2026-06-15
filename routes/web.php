@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Admin\DashboardController as AdminDashboardController;
+use App\Http\Controllers\Admin\LawyerApprovalController as AdminLawyerApprovalController;
 use App\Http\Controllers\Auth\AuthenticatedSessionController;
 use App\Http\Controllers\Auth\EmailVerificationNotificationController;
 use App\Http\Controllers\Auth\EmailVerificationPromptController;
@@ -9,11 +10,15 @@ use App\Http\Controllers\Auth\PasswordController;
 use App\Http\Controllers\Auth\PasswordResetLinkController;
 use App\Http\Controllers\Auth\RegisteredUserController;
 use App\Http\Controllers\Auth\VerifyEmailController;
+use App\Http\Controllers\Client\LegalAdviceController as ClientLegalAdviceController;
 use App\Http\Controllers\Client\AppointmentController as ClientAppointmentController;
 use App\Http\Controllers\Client\ChatController as ClientChatController;
 use App\Http\Controllers\Client\DashboardController as ClientDashboardController;
+use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\LawyerController;
+use App\Http\Controllers\Lawyer\MembershipController as LawyerMembershipController;
+use App\Http\Controllers\Lawyer\LegalAdviceController as LawyerLegalAdviceController;
 use App\Http\Controllers\Lawyer\AppointmentController as LawyerAppointmentController;
 use App\Http\Controllers\Lawyer\ChatController as LawyerChatController;
 use App\Http\Controllers\Lawyer\DashboardController as LawyerDashboardController;
@@ -57,11 +62,21 @@ Route::middleware('auth')->group(function () {
 
     Route::get('password/change', [PasswordController::class, 'edit'])->name('password.change');
     Route::put('password/change', [PasswordController::class, 'update'])->name('password.update');
+
+    Route::get('payments', [PaymentController::class, 'index'])->name('payments.index');
+    Route::get('payments/{payment}/checkout', [PaymentController::class, 'checkout'])->name('payments.checkout');
+    Route::post('payments/{payment}/process', [PaymentController::class, 'process'])->name('payments.process');
+    Route::get('payments/{payment}/receipt', [PaymentController::class, 'receipt'])->name('payments.receipt');
 });
 
 Route::middleware('auth')->group(function () {
     Route::middleware(['role:admin'])->prefix('admin')->name('admin.')->group(function () {
         Route::get('/dashboard', [AdminDashboardController::class, 'index'])->name('dashboard');
+
+        Route::get('/lawyers', [AdminLawyerApprovalController::class, 'index'])->name('lawyers.index');
+        Route::get('/lawyers/{lawyer}', [AdminLawyerApprovalController::class, 'show'])->name('lawyers.show');
+        Route::patch('/lawyers/{lawyer}/approve', [AdminLawyerApprovalController::class, 'approve'])->name('lawyers.approve');
+        Route::delete('/lawyers/{lawyer}/reject', [AdminLawyerApprovalController::class, 'reject'])->name('lawyers.reject');
     });
 
     Route::middleware(['role:lawyer'])->prefix('lawyer')->name('lawyer.')->group(function () {
@@ -82,6 +97,14 @@ Route::middleware('auth')->group(function () {
             Route::patch('/appointments/{appointment}/reject', [LawyerAppointmentController::class, 'reject'])->name('appointments.reject');
             Route::patch('/appointments/{appointment}/reschedule', [LawyerAppointmentController::class, 'reschedule'])->name('appointments.reschedule');
             Route::patch('/appointments/{appointment}/complete', [LawyerAppointmentController::class, 'complete'])->name('appointments.complete');
+
+            Route::get('/legal-advice', [LawyerLegalAdviceController::class, 'index'])->name('legal-advice.index');
+            Route::get('/legal-advice/{legalRequest}', [LawyerLegalAdviceController::class, 'show'])->name('legal-advice.show');
+            Route::post('/legal-advice/{legalRequest}/respond', [LawyerLegalAdviceController::class, 'respond'])->name('legal-advice.respond');
+            Route::patch('/legal-advice/{legalRequest}/resolve', [LawyerLegalAdviceController::class, 'resolve'])->name('legal-advice.resolve');
+
+            Route::get('/membership', [LawyerMembershipController::class, 'index'])->name('membership.index');
+            Route::post('/membership/{plan}/subscribe', [LawyerMembershipController::class, 'subscribe'])->name('membership.subscribe');
         });
     });
 
@@ -99,5 +122,11 @@ Route::middleware('auth')->group(function () {
         Route::post('/appointments/book/{lawyer}', [ClientAppointmentController::class, 'store'])->name('appointments.store');
         Route::get('/appointments/{appointment}', [ClientAppointmentController::class, 'show'])->name('appointments.show');
         Route::patch('/appointments/{appointment}/cancel', [ClientAppointmentController::class, 'cancel'])->name('appointments.cancel');
+
+        Route::get('/legal-advice', [ClientLegalAdviceController::class, 'index'])->name('legal-advice.index');
+        Route::get('/legal-advice/ask/{lawyer}', [ClientLegalAdviceController::class, 'create'])->name('legal-advice.create');
+        Route::post('/legal-advice/ask/{lawyer}', [ClientLegalAdviceController::class, 'store'])->name('legal-advice.store');
+        Route::get('/legal-advice/{legalRequest}', [ClientLegalAdviceController::class, 'show'])->name('legal-advice.show');
+        Route::patch('/legal-advice/{legalRequest}/close', [ClientLegalAdviceController::class, 'close'])->name('legal-advice.close');
     });
 });

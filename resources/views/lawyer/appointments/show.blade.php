@@ -16,7 +16,10 @@
             <div class="card border-0 shadow-sm">
                 <div class="card-header bg-white d-flex justify-content-between py-3">
                     <h5 class="mb-0">Appointment Details</h5>
-                    <span class="badge {{ $appointment->status->badgeClass() }}">{{ $appointment->status->label() }}</span>
+                    <div class="d-flex align-items-center gap-2">
+                        @include('partials.payment-status', ['payment' => $appointment->payment, 'isPaid' => $appointment->isPaid()])
+                        <span class="badge {{ $appointment->status->badgeClass() }}">{{ $appointment->status->label() }}</span>
+                    </div>
                 </div>
                 <div class="card-body p-4">
                     <div class="row g-3">

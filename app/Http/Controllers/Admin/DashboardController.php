@@ -7,6 +7,7 @@ use App\Models\ActivityLog;
 use App\Models\Appointment;
 use App\Models\Lawyer;
 use App\Models\Membership;
+use App\Models\Payment;
 use App\Models\User;
 use Illuminate\View\View;
 
@@ -20,6 +21,7 @@ class DashboardController extends Controller
             'pending_approvals' => Lawyer::where('is_approved', false)->count(),
             'total_appointments' => Appointment::count(),
             'active_memberships' => Membership::where('status', 'active')->count(),
+            'total_revenue' => Payment::where('status', 'completed')->sum('amount'),
         ];
 
         $pendingLawyers = Lawyer::with('user')

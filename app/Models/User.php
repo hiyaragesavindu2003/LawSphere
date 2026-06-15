@@ -60,6 +60,11 @@ class User extends Authenticatable
         return $this->hasMany(ActivityLog::class);
     }
 
+    public function payments(): HasMany
+    {
+        return $this->hasMany(Payment::class);
+    }
+
     public function isAdmin(): bool
     {
         return $this->role === UserRole::Admin;

@@ -217,3 +217,44 @@ body {
 .appointment-list-card:hover {
     box-shadow: 0 8px 20px rgba(26, 35, 126, 0.12) !important;
 }
+
+.legal-advice-form-header {
+    background: linear-gradient(135deg, var(--lawsphere-navy) 0%, var(--lawsphere-navy-dark) 100%);
+}
+
+.legal-advice-card {
+    transition: box-shadow 0.2s;
+}
+
+.legal-advice-card:hover {
+    box-shadow: 0 8px 20px rgba(26, 35, 126, 0.12) !important;
+}
+
+.legal-advice-response {
+    background: #f8f9fc;
+    border-radius: 0.5rem;
+    padding: 1rem;
+}
+
+.payment-checkout-header {
+    background: linear-gradient(135deg, var(--lawsphere-navy) 0%, var(--lawsphere-navy-dark) 100%);
+}
+
+.payment-summary-box,
+.payment-fee-box {
+    background: #f8f9fc;
+    border: 1px solid rgba(26, 35, 126, 0.1);
+}
+
+.membership-plan-card {
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.membership-plan-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 12px 24px rgba(26, 35, 126, 0.12) !important;
+}
+
+.membership-plan-featured {
+    border: 2px solid var(--lawsphere-gold) !important;
+}

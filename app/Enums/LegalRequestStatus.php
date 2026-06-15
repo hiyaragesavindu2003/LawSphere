@@ -18,4 +18,14 @@ enum LegalRequestStatus: string
             self::Closed => 'Closed',
         };
     }
+
+    public function badgeClass(): string
+    {
+        return match ($this) {
+            self::Pending => 'bg-warning text-dark',
+            self::InProgress => 'bg-primary',
+            self::Resolved => 'bg-success',
+            self::Closed => 'bg-secondary',
+        };
+    }
 }

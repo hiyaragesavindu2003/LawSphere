@@ -7,6 +7,8 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\MorphMany;
+use Illuminate\Database\Eloquent\Relations\MorphOne;
 
 class LegalRequest extends Model
 {
@@ -41,6 +43,26 @@ class LegalRequest extends Model
     public function responses(): HasMany
     {
         return $this->hasMany(LegalResponse::class);
+    }
+
+    public function payments(): MorphMany
+    {
+        return $this->morphMany(Payment::class, 'payable');
+    }
+
+    public function payment(): MorphOne
+    {
+        return $this->morphOne(Payment::class, 'payable')->latestOfMany();
+    }
+
+    public function isPaid(): bool
+    {
+        return $this->payments()->where('status', \App\Enums\PaymentStatus::Completed)->exists();
+    }
+
+    public function adviceAmount(): float
+    {
+        return (float) $this->lawyer->legal_advice_fee;
     }
 
     public function scopePending($query)

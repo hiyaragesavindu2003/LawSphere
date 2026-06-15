@@ -51,6 +51,31 @@
                         <i class="bi bi-chat-dots display-4 text-gold mb-3"></i>
                         <h5>Legal Advice</h5>
                         <p class="text-muted">Submit requests and receive professional responses.</p>
+                        @auth
+                            @if(auth()->user()->isClient())
+                                <a href="{{ route('client.legal-advice.index') }}" class="btn btn-btn-navy btn-sm">My Requests</a>
+                            @elseif(auth()->user()->isLawyer())
+                                <a href="{{ route('lawyer.legal-advice.index') }}" class="btn btn-btn-navy btn-sm">View Requests</a>
+                            @else
+                                <a href="{{ route('lawyers.index') }}" class="btn btn-btn-navy btn-sm">Find a Lawyer</a>
+                            @endif
+                        @else
+                            <a href="{{ route('login') }}" class="btn btn-btn-navy btn-sm">Login to Ask</a>
+                        @endauth
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card h-100 border-0 shadow-sm">
+                    <div class="card-body text-center p-4">
+                        <i class="bi bi-credit-card display-4 text-gold mb-3"></i>
+                        <h5>Secure Payments</h5>
+                        <p class="text-muted">Pay consultation fees, legal advice, and memberships securely.</p>
+                        @auth
+                            <a href="{{ route('payments.index') }}" class="btn btn-btn-navy btn-sm">Payment History</a>
+                        @else
+                            <a href="{{ route('login') }}" class="btn btn-btn-navy btn-sm">Login</a>
+                        @endauth
                     </div>
                 </div>
             </div>

@@ -6,6 +6,12 @@
 <div class="container">
     <div class="d-flex justify-content-between align-items-center mb-4 flex-wrap gap-2">
         <h2 class="mb-0"><i class="bi bi-speedometer2 me-2"></i>Lawyer Dashboard</h2>
+        <a href="{{ route('lawyer.legal-advice.index') }}" class="btn btn-outline-primary">
+            <i class="bi bi-journal-text me-1"></i> Legal Advice
+        </a>
+        <a href="{{ route('lawyer.membership.index') }}" class="btn btn-outline-secondary">
+            <i class="bi bi-award me-1"></i> Membership
+        </a>
         <a href="{{ route('lawyer.chat.index') }}" class="btn btn-btn-navy">
             <i class="bi bi-chat-dots me-1"></i> Messages
         </a>

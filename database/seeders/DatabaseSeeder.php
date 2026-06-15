@@ -163,6 +163,8 @@ class DatabaseSeeder extends Seeder
                     'bar_number' => $data['bar_number'],
                     'is_approved' => $data['is_approved'],
                     'approved_at' => $data['is_approved'] ? now() : null,
+                    'consultation_fee' => 50 + ($data['experience_years'] * 5),
+                    'legal_advice_fee' => 25 + ($data['experience_years'] * 2),
                 ]
             );
         }

@@ -36,7 +36,7 @@ class AppointmentController extends Controller
     {
         $this->authorizeLawyer($appointment);
 
-        $appointment->load(['lawyer.user', 'client.user']);
+        $appointment->load(['lawyer.user', 'client.user', 'payment']);
 
         return view('lawyer.appointments.show', compact('appointment'));
     }

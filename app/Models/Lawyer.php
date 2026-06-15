@@ -22,6 +22,8 @@ class Lawyer extends Model
         'approved_at',
         'average_rating',
         'total_reviews',
+        'consultation_fee',
+        'legal_advice_fee',
     ];
 
     protected function casts(): array
@@ -32,6 +34,8 @@ class Lawyer extends Model
             'average_rating' => 'decimal:2',
             'experience_years' => 'integer',
             'total_reviews' => 'integer',
+            'consultation_fee' => 'decimal:2',
+            'legal_advice_fee' => 'decimal:2',
         ];
     }
 

@@ -3,15 +3,19 @@
 namespace App\Http\Controllers\Client;
 
 use App\Enums\AppointmentStatus;
+use App\Enums\PaymentType;
 use App\Http\Controllers\Controller;
 use App\Models\Appointment;
 use App\Models\Lawyer;
+use App\Services\PaymentService;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
 
 class AppointmentController extends Controller
 {
+    public function __construct(private PaymentService $paymentService) {}
+
     public function index(Request $request): View
     {
         $client = auth()->user()->client;
@@ -31,7 +35,9 @@ class AppointmentController extends Controller
     {
         abort_unless($lawyer->is_approved, 404);
 
-        return view('client.appointments.create', compact('lawyer'));
+        $consultationFee = (float) $lawyer->consultation_fee;
+
+        return view('client.appointments.create', compact('lawyer', 'consultationFee'));
     }
 
     public function store(Request $request, Lawyer $lawyer): RedirectResponse
@@ -55,6 +61,22 @@ class AppointmentController extends Controller
             'status' => AppointmentStatus::Pending,
         ]);
 
+        $fee = (float) $lawyer->consultation_fee;
+
+        if ($fee > 0) {
+            $payment = $this->paymentService->create(
+                user: auth()->user(),
+                type: PaymentType::Appointment,
+                amount: $fee,
+                description: "Consultation with {$lawyer->user->name} on {$appointment->formatted_date_time}",
+                payable: $appointment,
+            );
+
+            return redirect()
+                ->route('payments.checkout', $payment)
+                ->with('status', 'Appointment created. Please complete payment to confirm your booking.');
+        }
+
         return redirect()
             ->route('client.appointments.show', $appointment)
             ->with('status', 'Appointment request submitted. Waiting for lawyer approval.');
@@ -64,7 +86,7 @@ class AppointmentController extends Controller
     {
         $this->authorizeClient($appointment);
 
-        $appointment->load(['lawyer.user', 'client.user', 'review']);
+        $appointment->load(['lawyer.user', 'client.user', 'review', 'payment']);
 
         return view('client.appointments.show', compact('appointment'));
     }

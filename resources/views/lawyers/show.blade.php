@@ -41,8 +41,22 @@
                         <li><i class="bi bi-award text-gold me-2"></i>Bar #{{ $lawyer->bar_number }}</li>
                     </ul>
 
+                    <div class="payment-fee-box p-3 rounded mb-3 text-start small">
+                        <div class="d-flex justify-content-between mb-1">
+                            <span>Consultation</span>
+                            <strong>{{ config('lawsphere.currency_symbol') }}{{ number_format($lawyer->consultation_fee, 2) }}</strong>
+                        </div>
+                        <div class="d-flex justify-content-between">
+                            <span>Legal advice</span>
+                            <strong>{{ config('lawsphere.currency_symbol') }}{{ number_format($lawyer->legal_advice_fee, 2) }}</strong>
+                        </div>
+                    </div>
+
                     @auth
                         @if(auth()->user()->isClient())
+                            <a href="{{ route('client.legal-advice.create', $lawyer) }}" class="btn btn-outline-primary w-100 mb-2">
+                                <i class="bi bi-journal-text me-1"></i> Request Legal Advice
+                            </a>
                             <a href="{{ route('client.appointments.create', $lawyer) }}" class="btn btn-btn-navy w-100 mb-2">
                                 <i class="bi bi-calendar-plus me-1"></i> Book Appointment
                             </a>
