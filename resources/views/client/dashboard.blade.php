@@ -9,6 +9,9 @@
         <a href="{{ route('client.legal-advice.index') }}" class="btn btn-outline-primary">
             <i class="bi bi-journal-text me-1"></i> Legal Advice
         </a>
+        <a href="{{ route('client.reviews.index') }}" class="btn btn-outline-primary">
+            <i class="bi bi-star me-1"></i> Reviews
+        </a>
         <a href="{{ route('payments.index') }}" class="btn btn-outline-secondary">
             <i class="bi bi-credit-card me-1"></i> Payments
         </a>
@@ -26,6 +29,7 @@
             ['label' => 'Total Appointments', 'value' => $stats['total_appointments']],
             ['label' => 'Pending Requests', 'value' => $stats['pending_requests']],
             ['label' => 'Reviews Given', 'value' => $stats['total_reviews']],
+            ['label' => 'Pending Reviews', 'value' => $stats['pending_reviews']],
         ] as $stat)
         <div class="col-md-3">
             <div class="card dashboard-stat h-100">

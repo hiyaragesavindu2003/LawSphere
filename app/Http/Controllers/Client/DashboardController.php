@@ -26,11 +26,27 @@ class DashboardController extends Controller
             ->take(5)
             ->get();
 
+        $pendingReviews = $client->appointments()
+            ->where('status', \App\Enums\AppointmentStatus::Completed)
+            ->whereDoesntHave('review')
+            ->with('lawyer')
+            ->get()
+            ->filter(fn ($a) => $a->canBeReviewed())
+            ->count()
+            + $client->legalRequests()
+                ->whereIn('status', [\App\Enums\LegalRequestStatus::Resolved, \App\Enums\LegalRequestStatus::Closed])
+                ->whereDoesntHave('review')
+                ->with(['lawyer', 'responses'])
+                ->get()
+                ->filter(fn ($r) => $r->canBeReviewed())
+                ->count();
+
         $stats = [
             'upcoming_appointments' => $client->appointments()->upcoming()->count(),
             'total_appointments' => $client->appointments()->count(),
             'pending_requests' => $client->legalRequests()->pending()->count(),
             'total_reviews' => $client->reviews()->count(),
+            'pending_reviews' => $pendingReviews,
         ];
 
         return view('client.dashboard', compact('stats', 'upcomingAppointments', 'recentRequests'));

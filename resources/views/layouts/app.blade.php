@@ -44,6 +44,11 @@
                                 </a>
                             </li>
                             <li class="nav-item">
+                                <a class="nav-link" href="{{ route('client.reviews.index') }}">
+                                    <i class="bi bi-star me-1"></i>Reviews
+                                </a>
+                            </li>
+                            <li class="nav-item">
                                 <a class="nav-link" href="{{ route('payments.index') }}">
                                     <i class="bi bi-credit-card me-1"></i>Payments
                                 </a>

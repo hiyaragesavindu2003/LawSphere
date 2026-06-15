@@ -84,6 +84,19 @@
                     </div>
                 </div>
             @endif
+
+            @if($appointment->canBeReviewed())
+                <div class="mt-4">
+                    @include('partials.review-form', [
+                        'action' => route('client.reviews.appointment', $appointment),
+                        'formId' => 'appt_'.$appointment->id,
+                    ])
+                </div>
+            @elseif($appointment->review)
+                <div class="mt-4">
+                    @include('partials.review-display', ['review' => $appointment->review])
+                </div>
+            @endif
         </div>
 
         <div class="col-lg-4">

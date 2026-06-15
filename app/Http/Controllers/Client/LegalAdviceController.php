@@ -84,7 +84,7 @@ class LegalAdviceController extends Controller
     {
         $this->authorizeClient($legalRequest);
 
-        $legalRequest->load(['lawyer.user', 'client.user', 'responses.lawyer.user', 'payment']);
+        $legalRequest->load(['lawyer.user', 'client.user', 'responses.lawyer.user', 'payment', 'review']);
 
         return view('client.legal-advice.show', compact('legalRequest'));
     }

@@ -70,6 +70,19 @@
                     </div>
                 </div>
             @endif
+
+            @if($legalRequest->canBeReviewed())
+                <div class="mt-4">
+                    @include('partials.review-form', [
+                        'action' => route('client.reviews.legal-advice', $legalRequest),
+                        'formId' => 'lr_'.$legalRequest->id,
+                    ])
+                </div>
+            @elseif($legalRequest->review)
+                <div class="mt-4">
+                    @include('partials.review-display', ['review' => $legalRequest->review])
+                </div>
+            @endif
         </div>
 
         <div class="col-lg-4">

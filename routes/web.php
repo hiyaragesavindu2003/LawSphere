@@ -10,6 +10,7 @@ use App\Http\Controllers\Auth\PasswordController;
 use App\Http\Controllers\Auth\PasswordResetLinkController;
 use App\Http\Controllers\Auth\RegisteredUserController;
 use App\Http\Controllers\Auth\VerifyEmailController;
+use App\Http\Controllers\Client\ReviewController as ClientReviewController;
 use App\Http\Controllers\Client\LegalAdviceController as ClientLegalAdviceController;
 use App\Http\Controllers\Client\AppointmentController as ClientAppointmentController;
 use App\Http\Controllers\Client\ChatController as ClientChatController;
@@ -128,5 +129,9 @@ Route::middleware('auth')->group(function () {
         Route::post('/legal-advice/ask/{lawyer}', [ClientLegalAdviceController::class, 'store'])->name('legal-advice.store');
         Route::get('/legal-advice/{legalRequest}', [ClientLegalAdviceController::class, 'show'])->name('legal-advice.show');
         Route::patch('/legal-advice/{legalRequest}/close', [ClientLegalAdviceController::class, 'close'])->name('legal-advice.close');
+
+        Route::get('/reviews', [ClientReviewController::class, 'index'])->name('reviews.index');
+        Route::post('/reviews/appointment/{appointment}', [ClientReviewController::class, 'storeAppointment'])->name('reviews.appointment');
+        Route::post('/reviews/legal-advice/{legalRequest}', [ClientReviewController::class, 'storeLegalRequest'])->name('reviews.legal-advice');
     });
 });

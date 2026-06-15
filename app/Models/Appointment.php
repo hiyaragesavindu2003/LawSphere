@@ -90,4 +90,23 @@ class Appointment extends Model
     {
         return $this->appointment_date->format('M d, Y').' at '.$this->formatted_time;
     }
+
+    public function canBeReviewed(): bool
+    {
+        if ($this->status !== AppointmentStatus::Completed) {
+            return false;
+        }
+
+        if ($this->review()->exists()) {
+            return false;
+        }
+
+        $fee = (float) $this->lawyer->consultation_fee;
+
+        if ($fee > 0 && ! $this->isPaid()) {
+            return false;
+        }
+
+        return true;
+    }
 }

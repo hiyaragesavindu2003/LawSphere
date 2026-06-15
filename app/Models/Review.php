@@ -14,6 +14,7 @@ class Review extends Model
         'client_id',
         'lawyer_id',
         'appointment_id',
+        'legal_request_id',
         'rating',
         'review_text',
     ];
@@ -38,6 +39,11 @@ class Review extends Model
     public function appointment(): BelongsTo
     {
         return $this->belongsTo(Appointment::class);
+    }
+
+    public function legalRequest(): BelongsTo
+    {
+        return $this->belongsTo(LegalRequest::class);
     }
 
     protected static function booted(): void

@@ -69,4 +69,32 @@ class LegalRequest extends Model
     {
         return $query->where('status', LegalRequestStatus::Pending);
     }
+
+    public function review(): \Illuminate\Database\Eloquent\Relations\HasOne
+    {
+        return $this->hasOne(Review::class);
+    }
+
+    public function canBeReviewed(): bool
+    {
+        if ($this->review()->exists()) {
+            return false;
+        }
+
+        if (! in_array($this->status, [LegalRequestStatus::Resolved, LegalRequestStatus::Closed], true)) {
+            return false;
+        }
+
+        if (! $this->responses()->exists()) {
+            return false;
+        }
+
+        $fee = (float) $this->lawyer->legal_advice_fee;
+
+        if ($fee > 0 && ! $this->isPaid()) {
+            return false;
+        }
+
+        return true;
+    }
 }
